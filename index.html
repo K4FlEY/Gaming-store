@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+    <header>
+        <div id="users">
+            <a href="loginsite.html">Join us</a>
+            <a href="loginsite.html">Login</a>
+            <p id="userDisplay">&copy;Safal Kafle</p>
+        </div>
+        
+        <nav class="navbar">
+            <a href="index.html"><img src="pht/ACE´ (3).png" alt="Logo"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutus.html">About Us</a></li> 
+                
+                <li><a href="contactus.html">Contact Us</a></li>
+             <li> <a href="cart.html"> <i class="bi bi-cart" id="cart">0</i></a></li> 
+            <div class="search-bar">
+                <input type="text" placeholder="Search">
+                <button type="submit"><i class="bi bi-search"></i></button>
+            </div>
+            <div class="love-mark">
+                <i class="bi bi-heart"></i>
+            </div>
+        </ul>
+        </nav>
+    </header>
+    <div class="main-content">
+        <h1>Products</h1>
+        <select id="sort-select">
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+          </select>
+
+
+          inventory items are shown here
+        <div class="grid-container" id="shop">
+            <div id="product-grid">
+
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('sort-select').addEventListener('change', function() {
+          const sortBy = this.value;
+          sortProducts(sortBy);
+        });
+    
+        function sortProducts(sortBy) {
+          const products = document.querySelectorAll('.product');
+          const sortedProducts = Array.from(products);
+    
+          if (sortBy === 'price-low') {
+            sortedProducts.sort((a, b) => {
+              const priceA = parseFloat(a.dataset.price);
+              const priceB = parseFloat(b.dataset.price);
+              return priceA - priceB;
+            });
+          } else if (sortBy === 'price-high') {
+            sortedProducts.sort((a, b) => {
+              const priceA = parseFloat(a.dataset.price);
+              const priceB = parseFloat(b.dataset.price);
+              return priceB - priceA;
+            });
+          }
+    
+          const productGrid = document.getElementById('product-grid');
+          productGrid.innerHTML = '';
+          sortedProducts.forEach(product => {
+            productGrid.appendChild(product);
+          });
+        }
+      </script>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="faq.html">Frequently Asked Questions (FAQ)</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+            <div class="contact-info">
+                <p>Address: </p>
+                <p>Email: example@example.com</p>
+                <p>Phone: +123456789</p>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="bi bi-instagram"></i></a>
+                <a href="#"><i class="bi bi-facebook"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="items_data.js"></script>
+    <script src="main.js"></script>
+    
+    <script src="firebase.js" type="module"></script>
+</body>
+</html>
+
+
+
+
+<style>
+
+
+/* Style for each product */
+.product {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: inline-block;
+    width: 40%; /* Adjust the width as needed */
+    margin: 30px; /* Adjust the margin as needed */
+    
+    position: relative;
+}
+
+/* Style for product image */
+.product-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.4s ease;
+}
+
+/* Hover effect */
+.product:hover .product-img {
+    transform: scale(1.1);
+}
+
+/* Style for product details */
+.product-details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 0 0 8px 8px;
+}
+
+/* Style for quantity adjustment */
+.calc {
+    display: flex;
+    align-items: center;
+}
+
+.calc i {
+    cursor: pointer;
+}
+
+/* Style for Buy button */
+.calc button {
+    margin-top: 5px;
+}
+
+/* Clearfix for floating elements */
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+
+
+
+
+
+
+
+
+ body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+}
+
+header {
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#users {
+    text-align: end;
+    text-decoration: none;
+    
+}
+
+#users a{
+    text-decoration: none;
+    
+    color: rgb(97, 162, 188);
+    font-weight: 800;
+    margin: 0px 20px;
+    transition: color 0.3s;
+}
+
+#users a:hover{
+    padding-top: 50px;
+    font-weight: 500;
+    color: black;
+    text-decoration: none;
+
+}
+
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar img {
+ width: 30%;
+   
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+  
+}
+
+.nav-links li{
+    text-decoration: none;
+    list-style: none;
+}
+.nav-links li a {
+    color: black;
+    font-weight: 800;
+    text-decoration: none;
+    transition: color 0.3s; /* Adding a smooth transition effect */
+}
+
+.nav-links li a:hover {
+    color: rgb(87, 161, 190); /* Changing the color to blue on hover */
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 20px;
+    padding: 5px 10px;
+
+}
+
+
+.search-bar input {
+    border: none;
+    outline: none;
+    background: none;
+    padding: 5px;
+}
+
+.search-bar button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.footer-content {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.social-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+
+
+
+</style>
+</html>
